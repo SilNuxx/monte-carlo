@@ -26,4 +26,4 @@ def parallel_worker(count_point):
 
 if __name__ == "__main__":
     with multiprocessing.Pool(multiprocessing.cpu_count()) as pool:
-        print(pool.map(count_pi, parallel_worker(8000000)))
+        print(pool.map(count_pi, parallel_worker(1000000000)))
