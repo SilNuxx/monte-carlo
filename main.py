@@ -1,5 +1,8 @@
 import random
 import multiprocessing
+from flask import Flask
+
+app = Flask(__name__)
 
 def count_pi(count_point):
     all_point = 0
@@ -24,6 +27,10 @@ def parallel_worker(count_point):
 
     return point_list
 
-if __name__ == "__main__":
+@app.route("/<int:n>")
+def start_work(n):
     with multiprocessing.Pool(multiprocessing.cpu_count()) as pool:
-        print(pool.map(count_pi, parallel_worker(1000000000)))
+        return pool.map(count_pi, parallel_worker(n))
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0")
